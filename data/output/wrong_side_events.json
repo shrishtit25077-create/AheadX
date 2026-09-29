@@ -1,0 +1,994 @@
+[
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 3,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.86,
+    "movement_vector": [
+      -29.0,
+      10.0
+    ],
+    "displacement_px": 30.68,
+    "angle_difference_deg": 161.0,
+    "timestamp_sec": 0.29,
+    "frame_index": 7
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 6,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.69,
+    "movement_vector": [
+      -28.0,
+      -1.0
+    ],
+    "displacement_px": 28.02,
+    "angle_difference_deg": 178.0,
+    "timestamp_sec": 0.29,
+    "frame_index": 7
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 21,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.38,
+    "movement_vector": [
+      -34.0,
+      -4.0
+    ],
+    "displacement_px": 34.23,
+    "angle_difference_deg": 173.3,
+    "timestamp_sec": 0.29,
+    "frame_index": 7
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 22,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.36,
+    "movement_vector": [
+      -25.0,
+      -1.0
+    ],
+    "displacement_px": 25.02,
+    "angle_difference_deg": 177.7,
+    "timestamp_sec": 0.42,
+    "frame_index": 10
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 5,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.56,
+    "movement_vector": [
+      -20.0,
+      18.0
+    ],
+    "displacement_px": 26.91,
+    "angle_difference_deg": 138.0,
+    "timestamp_sec": 0.46,
+    "frame_index": 11
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 17,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.48,
+    "movement_vector": [
+      -27.0,
+      -4.0
+    ],
+    "displacement_px": 27.29,
+    "angle_difference_deg": 171.6,
+    "timestamp_sec": 0.5,
+    "frame_index": 12
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 24,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.41,
+    "movement_vector": [
+      -25.0,
+      -4.0
+    ],
+    "displacement_px": 25.32,
+    "angle_difference_deg": 170.9,
+    "timestamp_sec": 0.58,
+    "frame_index": 14
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 25,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.42,
+    "movement_vector": [
+      -59.0,
+      -17.0
+    ],
+    "displacement_px": 61.4,
+    "angle_difference_deg": 163.9,
+    "timestamp_sec": 0.63,
+    "frame_index": 15
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 37,
+    "vehicle_class": "truck",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.43,
+    "movement_vector": [
+      -26.0,
+      -7.0
+    ],
+    "displacement_px": 26.93,
+    "angle_difference_deg": 164.9,
+    "timestamp_sec": 1.0,
+    "frame_index": 24
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 56,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.45,
+    "movement_vector": [
+      -24.0,
+      -8.0
+    ],
+    "displacement_px": 25.3,
+    "angle_difference_deg": 161.6,
+    "timestamp_sec": 1.33,
+    "frame_index": 32
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 75,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.36,
+    "movement_vector": [
+      -24.0,
+      -9.0
+    ],
+    "displacement_px": 25.63,
+    "angle_difference_deg": 159.4,
+    "timestamp_sec": 1.96,
+    "frame_index": 47
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 70,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.59,
+    "movement_vector": [
+      -29.0,
+      -5.0
+    ],
+    "displacement_px": 29.43,
+    "angle_difference_deg": 170.2,
+    "timestamp_sec": 2.0,
+    "frame_index": 48
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 55,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.4,
+    "movement_vector": [
+      -69.0,
+      -17.0
+    ],
+    "displacement_px": 71.06,
+    "angle_difference_deg": 166.2,
+    "timestamp_sec": 2.42,
+    "frame_index": 58
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 84,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.7,
+    "movement_vector": [
+      -24.0,
+      -9.0
+    ],
+    "displacement_px": 25.63,
+    "angle_difference_deg": 159.4,
+    "timestamp_sec": 2.88,
+    "frame_index": 69
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 98,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.5,
+    "movement_vector": [
+      -27.0,
+      -7.0
+    ],
+    "displacement_px": 27.89,
+    "angle_difference_deg": 165.5,
+    "timestamp_sec": 4.38,
+    "frame_index": 105
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 110,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.51,
+    "movement_vector": [
+      -24.0,
+      -7.0
+    ],
+    "displacement_px": 25.0,
+    "angle_difference_deg": 163.7,
+    "timestamp_sec": 5.17,
+    "frame_index": 124
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 113,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.71,
+    "movement_vector": [
+      -25.0,
+      -10.0
+    ],
+    "displacement_px": 26.93,
+    "angle_difference_deg": 158.2,
+    "timestamp_sec": 5.51,
+    "frame_index": 132
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 125,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.46,
+    "movement_vector": [
+      -27.0,
+      -5.0
+    ],
+    "displacement_px": 27.46,
+    "angle_difference_deg": 169.5,
+    "timestamp_sec": 5.88,
+    "frame_index": 141
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 123,
+    "vehicle_class": "truck",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.51,
+    "movement_vector": [
+      -25.0,
+      -8.0
+    ],
+    "displacement_px": 26.25,
+    "angle_difference_deg": 162.3,
+    "timestamp_sec": 5.96,
+    "frame_index": 143
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 132,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.35,
+    "movement_vector": [
+      -40.0,
+      -8.0
+    ],
+    "displacement_px": 40.79,
+    "angle_difference_deg": 168.7,
+    "timestamp_sec": 6.55,
+    "frame_index": 157
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 140,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.43,
+    "movement_vector": [
+      -36.0,
+      -6.0
+    ],
+    "displacement_px": 36.5,
+    "angle_difference_deg": 170.5,
+    "timestamp_sec": 6.67,
+    "frame_index": 160
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 129,
+    "vehicle_class": "truck",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.51,
+    "movement_vector": [
+      -71.0,
+      -3.0
+    ],
+    "displacement_px": 71.06,
+    "angle_difference_deg": 177.6,
+    "timestamp_sec": 7.05,
+    "frame_index": 169
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 145,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.62,
+    "movement_vector": [
+      -25.0,
+      -7.0
+    ],
+    "displacement_px": 25.96,
+    "angle_difference_deg": 164.4,
+    "timestamp_sec": 7.09,
+    "frame_index": 170
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 147,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.37,
+    "movement_vector": [
+      -22.0,
+      12.0
+    ],
+    "displacement_px": 25.06,
+    "angle_difference_deg": 151.4,
+    "timestamp_sec": 7.72,
+    "frame_index": 185
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 153,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.66,
+    "movement_vector": [
+      -27.0,
+      -7.0
+    ],
+    "displacement_px": 27.89,
+    "angle_difference_deg": 165.5,
+    "timestamp_sec": 8.01,
+    "frame_index": 192
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 160,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.4,
+    "movement_vector": [
+      -25.0,
+      -3.0
+    ],
+    "displacement_px": 25.18,
+    "angle_difference_deg": 173.2,
+    "timestamp_sec": 8.43,
+    "frame_index": 202
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 158,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.43,
+    "movement_vector": [
+      -27.0,
+      -5.0
+    ],
+    "displacement_px": 27.46,
+    "angle_difference_deg": 169.5,
+    "timestamp_sec": 8.47,
+    "frame_index": 203
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 105,
+    "vehicle_class": "car",
+    "direction": "down",
+    "allowed_direction": "right",
+    "confidence": 0.6,
+    "movement_vector": [
+      -15.0,
+      21.0
+    ],
+    "displacement_px": 25.81,
+    "angle_difference_deg": 125.5,
+    "timestamp_sec": 9.01,
+    "frame_index": 216
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 163,
+    "vehicle_class": "car",
+    "direction": "down",
+    "allowed_direction": "right",
+    "confidence": 0.46,
+    "movement_vector": [
+      -16.0,
+      26.0
+    ],
+    "displacement_px": 30.53,
+    "angle_difference_deg": 121.6,
+    "timestamp_sec": 9.13,
+    "frame_index": 219
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 183,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.43,
+    "movement_vector": [
+      -25.0,
+      -3.0
+    ],
+    "displacement_px": 25.18,
+    "angle_difference_deg": 173.2,
+    "timestamp_sec": 9.3,
+    "frame_index": 223
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 177,
+    "vehicle_class": "truck",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.51,
+    "movement_vector": [
+      -25.0,
+      -4.0
+    ],
+    "displacement_px": 25.32,
+    "angle_difference_deg": 170.9,
+    "timestamp_sec": 9.59,
+    "frame_index": 230
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 201,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.39,
+    "movement_vector": [
+      -38.0,
+      -6.0
+    ],
+    "displacement_px": 38.47,
+    "angle_difference_deg": 171.0,
+    "timestamp_sec": 10.47,
+    "frame_index": 251
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 199,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.36,
+    "movement_vector": [
+      -66.0,
+      -15.0
+    ],
+    "displacement_px": 67.68,
+    "angle_difference_deg": 167.2,
+    "timestamp_sec": 10.64,
+    "frame_index": 255
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 204,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.36,
+    "movement_vector": [
+      -25.0,
+      -2.0
+    ],
+    "displacement_px": 25.08,
+    "angle_difference_deg": 175.4,
+    "timestamp_sec": 10.84,
+    "frame_index": 260
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 215,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.49,
+    "movement_vector": [
+      -26.0,
+      -6.0
+    ],
+    "displacement_px": 26.68,
+    "angle_difference_deg": 167.0,
+    "timestamp_sec": 11.59,
+    "frame_index": 278
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 220,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.48,
+    "movement_vector": [
+      -26.0,
+      -4.0
+    ],
+    "displacement_px": 26.31,
+    "angle_difference_deg": 171.3,
+    "timestamp_sec": 12.22,
+    "frame_index": 293
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 231,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.44,
+    "movement_vector": [
+      -24.0,
+      -14.0
+    ],
+    "displacement_px": 27.78,
+    "angle_difference_deg": 149.7,
+    "timestamp_sec": 12.6,
+    "frame_index": 302
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 237,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.47,
+    "movement_vector": [
+      -30.0,
+      -5.0
+    ],
+    "displacement_px": 30.41,
+    "angle_difference_deg": 170.5,
+    "timestamp_sec": 12.6,
+    "frame_index": 302
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 242,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.4,
+    "movement_vector": [
+      -46.0,
+      -4.0
+    ],
+    "displacement_px": 46.17,
+    "angle_difference_deg": 175.0,
+    "timestamp_sec": 13.05,
+    "frame_index": 313
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 193,
+    "vehicle_class": "car",
+    "direction": "down",
+    "allowed_direction": "right",
+    "confidence": 0.77,
+    "movement_vector": [
+      -32.0,
+      50.0
+    ],
+    "displacement_px": 59.36,
+    "angle_difference_deg": 122.6,
+    "timestamp_sec": 13.22,
+    "frame_index": 317
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 226,
+    "vehicle_class": "car",
+    "direction": "down",
+    "allowed_direction": "right",
+    "confidence": 0.48,
+    "movement_vector": [
+      -18.0,
+      19.0
+    ],
+    "displacement_px": 26.17,
+    "angle_difference_deg": 133.5,
+    "timestamp_sec": 13.47,
+    "frame_index": 323
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 254,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.48,
+    "movement_vector": [
+      -27.0,
+      -12.0
+    ],
+    "displacement_px": 29.55,
+    "angle_difference_deg": 156.0,
+    "timestamp_sec": 14.35,
+    "frame_index": 344
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 260,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.4,
+    "movement_vector": [
+      -25.0,
+      -1.0
+    ],
+    "displacement_px": 25.02,
+    "angle_difference_deg": 177.7,
+    "timestamp_sec": 14.76,
+    "frame_index": 354
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 263,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.36,
+    "movement_vector": [
+      -33.0,
+      -10.0
+    ],
+    "displacement_px": 34.48,
+    "angle_difference_deg": 163.1,
+    "timestamp_sec": 15.01,
+    "frame_index": 360
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 271,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.5,
+    "movement_vector": [
+      -28.0,
+      -4.0
+    ],
+    "displacement_px": 28.28,
+    "angle_difference_deg": 171.9,
+    "timestamp_sec": 15.6,
+    "frame_index": 374
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 283,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.37,
+    "movement_vector": [
+      -23.0,
+      -15.0
+    ],
+    "displacement_px": 27.46,
+    "angle_difference_deg": 146.9,
+    "timestamp_sec": 16.43,
+    "frame_index": 394
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 298,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.56,
+    "movement_vector": [
+      -26.0,
+      -7.0
+    ],
+    "displacement_px": 26.93,
+    "angle_difference_deg": 164.9,
+    "timestamp_sec": 17.39,
+    "frame_index": 417
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 266,
+    "vehicle_class": "car",
+    "direction": "down",
+    "allowed_direction": "right",
+    "confidence": 0.5,
+    "movement_vector": [
+      -22.0,
+      34.0
+    ],
+    "displacement_px": 40.5,
+    "angle_difference_deg": 122.9,
+    "timestamp_sec": 17.64,
+    "frame_index": 423
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 301,
+    "vehicle_class": "car",
+    "direction": "up",
+    "allowed_direction": "right",
+    "confidence": 0.6,
+    "movement_vector": [
+      -17.0,
+      -20.0
+    ],
+    "displacement_px": 26.25,
+    "angle_difference_deg": 130.4,
+    "timestamp_sec": 17.64,
+    "frame_index": 423
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 303,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.75,
+    "movement_vector": [
+      -26.0,
+      -8.0
+    ],
+    "displacement_px": 27.2,
+    "angle_difference_deg": 162.9,
+    "timestamp_sec": 17.98,
+    "frame_index": 431
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 310,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.45,
+    "movement_vector": [
+      -24.0,
+      -11.0
+    ],
+    "displacement_px": 26.4,
+    "angle_difference_deg": 155.4,
+    "timestamp_sec": 18.89,
+    "frame_index": 453
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 315,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.57,
+    "movement_vector": [
+      -24.0,
+      -12.0
+    ],
+    "displacement_px": 26.83,
+    "angle_difference_deg": 153.4,
+    "timestamp_sec": 19.1,
+    "frame_index": 458
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 327,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.65,
+    "movement_vector": [
+      -25.0,
+      -7.0
+    ],
+    "displacement_px": 25.96,
+    "angle_difference_deg": 164.4,
+    "timestamp_sec": 20.56,
+    "frame_index": 493
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 336,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.43,
+    "movement_vector": [
+      -25.0,
+      -7.0
+    ],
+    "displacement_px": 25.96,
+    "angle_difference_deg": 164.4,
+    "timestamp_sec": 21.35,
+    "frame_index": 512
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 337,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.39,
+    "movement_vector": [
+      -28.0,
+      -8.0
+    ],
+    "displacement_px": 29.12,
+    "angle_difference_deg": 164.1,
+    "timestamp_sec": 21.4,
+    "frame_index": 513
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 340,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.54,
+    "movement_vector": [
+      -25.0,
+      -11.0
+    ],
+    "displacement_px": 27.31,
+    "angle_difference_deg": 156.3,
+    "timestamp_sec": 21.81,
+    "frame_index": 523
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 342,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.37,
+    "movement_vector": [
+      -27.0,
+      -1.0
+    ],
+    "displacement_px": 27.02,
+    "angle_difference_deg": 177.9,
+    "timestamp_sec": 22.31,
+    "frame_index": 535
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 335,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.76,
+    "movement_vector": [
+      -21.0,
+      16.0
+    ],
+    "displacement_px": 26.4,
+    "angle_difference_deg": 142.7,
+    "timestamp_sec": 23.48,
+    "frame_index": 563
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 351,
+    "vehicle_class": "truck",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.84,
+    "movement_vector": [
+      -26.0,
+      -9.0
+    ],
+    "displacement_px": 27.51,
+    "angle_difference_deg": 160.9,
+    "timestamp_sec": 24.02,
+    "frame_index": 576
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 356,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.58,
+    "movement_vector": [
+      -24.0,
+      -12.0
+    ],
+    "displacement_px": 26.83,
+    "angle_difference_deg": 153.4,
+    "timestamp_sec": 24.44,
+    "frame_index": 586
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 362,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.68,
+    "movement_vector": [
+      -24.0,
+      -8.0
+    ],
+    "displacement_px": 25.3,
+    "angle_difference_deg": 161.6,
+    "timestamp_sec": 26.19,
+    "frame_index": 628
+  },
+  {
+    "event_type": "suspected_wrong_side",
+    "vehicle_id": 367,
+    "vehicle_class": "car",
+    "direction": "left",
+    "allowed_direction": "right",
+    "confidence": 0.77,
+    "movement_vector": [
+      -26.0,
+      -11.0
+    ],
+    "displacement_px": 28.23,
+    "angle_difference_deg": 157.1,
+    "timestamp_sec": 26.48,
+    "frame_index": 635
+  }
+]
