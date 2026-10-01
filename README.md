@@ -31,36 +31,44 @@ AHEADX is an intelligent road safety and traffic intelligence platform.
   - High-visibility visual alert indicators on video (Red bounding box & warning banners)
 - **Output:** Annotated video (`data/output/traffic_wrong_side.mp4`) and structured events JSON (`data/output/wrong_side_events.json`)
 
+### Phase 4: Road Blockage Detection
+- **Engine:** Spatial ROI Gated Prolonged Stationary Detection
+- **Features:**
+  - Identifies vehicles remaining stationary beyond configurable duration thresholds
+  - Bounding box jitter tolerance radius
+  - Road Region of Interest (ROI) polygon gating to distinguish active lanes from off-road areas
+  - Structured event schema for possible blockage instances
+  - High-visibility visual alert indicators on video (Warning Amber double-box & stationary timer)
+- **Output:** Annotated video (`data/output/traffic_blockage.mp4`) and structured events JSON (`data/output/blockage_events.json`)
+
 ---
 
-## Direction Analysis & Detection Logic
+## Blockage Detection Logic & Configuration
 
-### 1. Movement Vector Calculation
-Rather than relying on single-frame differences (which are sensitive to bounding-box jitter), the movement vector is calculated across a sliding window of historical trajectory points:
-$$\vec{v} = (x_{\text{current}} - x_{\text{past}}, y_{\text{current}} - y_{\text{past}})$$
-$$\|\vec{v}\| = \sqrt{\Delta x^2 + \Delta y^2}$$
+### 1. Stationary Duration Analysis
+A vehicle is evaluated for blockage based on its stationary persistence:
+- **Stationary Anchor:** When a vehicle enters the scene or completes a movement, an anchor $(x_{\text{anchor}}, y_{\text{anchor}})$ is set.
+- **Jitter Tolerance Radius:** If subsequent center points $(cx, cy)$ stay within `--movement-threshold` (default: `35.0` pixels), the vehicle is considered stationary, and `stationary_duration` accumulates:
+  $$\text{stationary\_duration} = \text{timestamp}_{\text{curr}} - \text{timestamp}_{\text{anchor}}$$
+- **Movement Reset:** If displacement exceeds the movement threshold, the anchor updates to the new position and the stationary timer resets to `0.0s`.
 
-### 2. Configurable Allowed Direction
-Road direction is fully configurable and not hardcoded:
-- `--allowed-direction right`: Flow along $+x$ axis $(1, 0)$
-- `--allowed-direction left`: Flow along $-x$ axis $(-1, 0)$
-- `--allowed-direction down`: Flow along $+y$ axis $(0, 1)$
-- `--allowed-direction up`: Flow along $-y$ axis $(0, -1)$
+### 2. Road ROI (Region of Interest) Polygon Gating
+To prevent vehicles parked in designated off-road parking bays, shoulders, or sidewalks from triggering blockage events, the system applies point-in-polygon verification:
+```python
+is_on_road = cv2.pointPolygonTest(roi_contour, (cx, cy), False) >= 0
+```
+Vehicles outside the polygon are classified as `OUTSIDE_ROI` / `OFF-ROAD` and suppressed from blockage alerts.
 
-### 3. Minimum Movement Threshold
-To ensure stationary or parked vehicles are never falsely flagged, a vehicle's displacement $\|\vec{v}\|$ must exceed `--min-movement` (default: `25.0` pixels). Vehicles below this threshold are labeled as `STATIONARY`.
+### 3. Configurable Thresholds
+- `--min-stationary-duration`: Minimum stationary duration in seconds (default: `2.0` - `3.0`s).
+- `--movement-threshold`: Pixel displacement jitter tolerance radius (default: `35.0` - `40.0`px).
+- `--min-history`: Minimum number of historical trajectory points required before evaluation (default: `15` frames).
 
-### 4. Direction Tolerance
-The angular deviation $\phi$ between the vehicle's movement vector $\vec{v}$ and the allowed unit vector $\vec{u}_{\text{allowed}}$ is calculated using the dot product:
-$$\cos(\phi) = \frac{\vec{v} \cdot \vec{u}_{\text{allowed}}}{\|\vec{v}\|}$$
-$$\phi = \arccos(\text{clamp}(\cos(\phi), -1.0, 1.0)) \times \frac{180^\circ}{\pi}$$
-
-A vehicle is flagged as a **suspected wrong-side vehicle** only if $\phi \ge \text{angle\_thresh}$ (default: `120.0^\circ`). This ensures normal lane shifts, slight curves, and tracking noise do not trigger false alerts.
-
-### 5. Limitations
-- **Camera Perspective / 2D Homography**: 2D camera perspectives without 3D camera calibration can distort angles near the horizon.
-- **Occlusions**: Severe occlusions may cause ByteTrack to reassign track IDs, resetting trajectory history.
-- **Complex Intersections / Turns**: Legitimate maneuvers such as turns onto cross-streets or U-turns may temporarily oppose the primary road direction. Events are marked as **suspected/possible** events for downstream verification.
+### 4. Limitations & False-Positive Scenarios
+- **Traffic Congestion / Stop-and-Go:** Dense stop-and-go traffic or red-light queues will cause vehicles to remain stopped. Downstream risk scoring engines should combine multi-vehicle clustering to distinguish full-road congestion from isolated vehicle breakdowns.
+- **Traffic Lights / Intersections:** Vehicles legitimately stopped at signals require integration with traffic signal timing or intersection exclusion zones.
+- **Bus Stops & Designated Drop-offs:** Public transport stopping at designated bays can trigger alerts if the stop falls within the monitored road ROI polygon.
+- **Severe Occlusion:** If an occluding truck blocks a stopped vehicle and causes ByteTrack ID reassignment, the stationary timer reinitializes.
 
 ---
 
@@ -81,16 +89,20 @@ AheadX/
 │       ├── traffic_detected.mp4   # Phase 1: Detection output
 │       ├── traffic_tracked.mp4    # Phase 2: Tracking output
 │       ├── traffic_wrong_side.mp4 # Phase 3: Wrong-side detection output
-│       └── wrong_side_events.json # Phase 3: Structured events JSON log
+│       ├── traffic_blockage.mp4   # Phase 4: Road blockage detection output
+│       ├── wrong_side_events.json # Phase 3: Structured events JSON log
+│       └── blockage_events.json   # Phase 4: Structured events JSON log
 ├── src/
 │   ├── __init__.py
 │   ├── detect.py               # Phase 1: Vehicle detection pipeline
 │   ├── track.py                # Phase 2: ByteTrack vehicle tracking pipeline
-│   └── wrong_side.py           # Phase 3: Wrong-side driving detection pipeline
+│   ├── wrong_side.py           # Phase 3: Wrong-side driving detection pipeline
+│   └── blockage.py             # Phase 4: Road blockage detection pipeline
 └── tests/
     ├── test_pipeline.py        # Phase 1 verification tests
     ├── test_tracking.py        # Phase 2 verification tests
-    └── test_wrong_side.py      # Phase 3 verification tests
+    ├── test_wrong_side.py      # Phase 3 verification tests
+    └── test_blockage.py        # Phase 4 verification tests
 ```
 
 ---
@@ -109,20 +121,23 @@ pip install -r requirements.txt
 
 ## Running the Pipelines
 
+### Phase 4: Road Blockage Detection
+
+```bash
+# Run with default settings (2.0s stationary threshold)
+python src/blockage.py --input data/videos/traffic.mp4 --min-stationary-duration 2.0
+
+# Customize stationary threshold and movement tolerance
+python src/blockage.py --min-stationary-duration 3.0 --movement-threshold 40.0
+
+# Enable live preview window
+python src/blockage.py --show
+```
+
 ### Phase 3: Wrong-Side Driving Detection
 
 ```bash
-# Run with default settings (allowed road flow: 'right')
 python src/wrong_side.py --input data/videos/traffic.mp4 --allowed-direction right
-
-# Configure a different road direction (e.g., 'left', 'down', 'up')
-python src/wrong_side.py --allowed-direction left
-
-# Customize movement threshold and angle tolerance
-python src/wrong_side.py --min-movement 30.0 --angle-thresh 130.0
-
-# Enable live preview window
-python src/wrong_side.py --show
 ```
 
 ### Phase 2: Vehicle Tracking (ByteTrack)
@@ -150,4 +165,7 @@ python tests/test_tracking.py
 
 # Phase 3 Wrong-Side Direction Unit Tests
 python tests/test_wrong_side.py
+
+# Phase 4 Road Blockage Unit Tests
+python tests/test_blockage.py
 ```

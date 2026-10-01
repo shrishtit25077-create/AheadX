@@ -1,0 +1,26 @@
+[
+  {
+    "event_type": "possible_blockage",
+    "vehicle_id": 62,
+    "vehicle_class": "car",
+    "stationary_duration": 2.42,
+    "location": {
+      "x": 533,
+      "y": 296
+    },
+    "confidence": 0.56,
+    "timestamp": 3.75
+  },
+  {
+    "event_type": "possible_blockage",
+    "vehicle_id": 73,
+    "vehicle_class": "car",
+    "stationary_duration": 2.13,
+    "location": {
+      "x": 525,
+      "y": 263
+    },
+    "confidence": 0.41,
+    "timestamp": 7.3
+  }
+]
