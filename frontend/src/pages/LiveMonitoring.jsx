@@ -2,67 +2,85 @@ import React, { useState } from "react";
 import CameraCard from "../components/video/CameraCard";
 import Modal from "../components/common/Modal";
 import { camerasData } from "../data/mockData";
-import {
-  Video,
-  Layers,
-  Activity,
-  Sliders,
-  Maximize2,
-  AlertTriangle,
-  CheckCircle,
-  Eye,
-} from "lucide-react";
+import { Video, ShieldAlert, Search, Filter, Radio, Sliders } from "lucide-react";
 
 export default function LiveMonitoring() {
   const [selectedCamera, setSelectedCamera] = useState(null);
   const [filterMode, setFilterMode] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredCameras = camerasData.filter((cam) => {
-    if (filterMode === "alerts") return cam.activeEventsCount > 0;
+    if (filterMode === "alerts" && cam.activeEventsCount === 0) return false;
+    if (filterMode === "highway" && !cam.label.toLowerCase().includes("highway") && !cam.label.toLowerCase().includes("overpass")) return false;
+    
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      const matchName = cam.name.toLowerCase().includes(q);
+      const matchLabel = cam.label.toLowerCase().includes(q);
+      const matchLoc = cam.location.toLowerCase().includes(q);
+      if (!matchName && !matchLabel && !matchLoc) return false;
+    }
     return true;
   });
 
   return (
-    <div className="space-y-6">
-      {/* Top Controls & Status */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-[#0F172A] border border-slate-800 p-4 rounded-lg">
+    <div className="space-y-6 max-w-7xl mx-auto pb-16">
+      {/* Executive Page Header */}
+      <div className="glass-panel p-6 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-sm font-bold uppercase tracking-wider text-white">
-            MULTI-CAMERA OPTICAL SURVEILLANCE
-          </h2>
-          <p className="text-xs text-slate-400 font-mono mt-0.5">
-            Real-time optical feeds connected to ByteTrack vehicle inference engine.
+          <div className="flex items-center gap-2 mb-1">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-soft-pulse"></span>
+            <span className="text-xs font-bold font-mono-tech uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/80">
+              Corridor Optical Network
+            </span>
+            <span className="text-xs text-slate-400 font-mono-tech">· 6 Active Ingestion Channels</span>
+          </div>
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight font-sans">
+            CCTV Surveillance Matrix & Optical Ingestion
+          </h1>
+          <p className="text-xs text-slate-500 mt-1">
+            Real-time multi-angle optical feeds with automated spatial trajectory tracking
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setFilterMode("all")}
-            className={`px-3 py-1.5 rounded text-xs font-mono transition ${
-              filterMode === "all"
-                ? "bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-semibold"
-                : "bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200"
-            }`}
-          >
-            All Cameras ({camerasData.length})
-          </button>
-          <button
-            onClick={() => setFilterMode("alerts")}
-            className={`px-3 py-1.5 rounded text-xs font-mono transition ${
-              filterMode === "alerts"
-                ? "bg-red-500/10 text-red-400 border border-red-500/30 font-semibold"
-                : "bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200"
-            }`}
-          >
-            Active Alerts Only (
-            {camerasData.filter((c) => c.activeEventsCount > 0).length})
-          </button>
+        {/* Search & Quick Filters */}
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="relative min-w-[220px]">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Filter camera or sector..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-white/90 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-2xs"
+            />
+          </div>
+
+          <div className="flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200 text-xs">
+            {[
+              { id: "all", label: "All Cameras", count: camerasData.length },
+              { id: "alerts", label: "Active Alerts", count: camerasData.filter(c => c.activeEventsCount > 0).length },
+              { id: "highway", label: "Highway Sector", count: 3 },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setFilterMode(tab.id)}
+                className={`px-3 py-1.5 rounded-lg transition font-medium ${
+                  filterMode === tab.id
+                    ? "bg-white text-slate-900 font-semibold shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <span>{tab.label}</span>
+                <span className="ml-1.5 font-mono-tech text-[10px] text-slate-400">({tab.count})</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Camera Grid (2x2 or 3x2) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* 6-Up Camera Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredCameras.map((camera) => (
           <CameraCard
             key={camera.id}
@@ -72,95 +90,55 @@ export default function LiveMonitoring() {
         ))}
       </div>
 
-      {/* Detailed Modal Inspection View */}
+      {/* Camera Inspection Modal */}
       {selectedCamera && (
         <Modal
           isOpen={!!selectedCamera}
           onClose={() => setSelectedCamera(null)}
           title={`${selectedCamera.name} — ${selectedCamera.label}`}
-          subtitle={`Location: ${selectedCamera.location} | Resolution: ${selectedCamera.resolution}`}
+          subtitle={`${selectedCamera.location} · Resolution ${selectedCamera.resolution} · ${selectedCamera.fps} FPS`}
         >
-          <div className="space-y-4">
-            {/* Expanded Video Preview */}
-            <div className="relative aspect-video w-full bg-black rounded-lg overflow-hidden border border-slate-700 flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none"></div>
+          <div className="space-y-5">
+            <div className="relative aspect-video w-full bg-slate-950 rounded-xl overflow-hidden border border-slate-200 shadow-md flex items-center justify-center">
+              <video
+                src={
+                  selectedCamera.id === "cam-02"
+                    ? "/videos/traffic_blockage.mp4"
+                    : selectedCamera.id === "cam-03"
+                    ? "/videos/traffic_tracked.mp4"
+                    : selectedCamera.id === "cam-04"
+                    ? "/videos/traffic_detected.mp4"
+                    : "/videos/traffic_wrong_side.mp4"
+                }
+                controls
+                autoPlay
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              />
 
-              {/* Watermark Overlay */}
-              <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 px-2.5 py-1 rounded border border-slate-800 text-xs font-mono">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span className="text-white font-bold">{selectedCamera.name}</span>
-                <span className="text-slate-500">|</span>
-                <span className="text-cyan-400">{selectedCamera.fps} FPS</span>
-              </div>
-
-              <div className="text-center p-6 z-10">
-                <Video className="w-12 h-12 text-cyan-400/80 mx-auto mb-2" />
-                <h4 className="text-sm font-mono font-bold text-white uppercase">
-                  ACTIVE CAMERA INSPECTION VIEW
-                </h4>
-                <p className="text-xs text-slate-400 font-mono mt-1">
-                  Optical feed pipeline ready for direct stream ingestion
-                </p>
-                <div className="mt-3 inline-block px-3 py-1 rounded bg-slate-900 border border-slate-700 text-xs font-mono text-cyan-300">
-                  Allowed Flow: {selectedCamera.allowedDirection}
-                </div>
-              </div>
-
-              {/* Simulated Active Event Tag if any */}
-              {selectedCamera.activeEventsCount > 0 && (
-                <div className="absolute bottom-4 left-4 right-4 bg-red-950/90 border border-red-600/50 p-3 rounded-lg text-xs font-mono text-white flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" />
-                    <span>
-                      ACTIVE EVENT:{" "}
-                      <span className="font-bold text-red-300">
-                        {selectedCamera.latestEvent}
-                      </span>
-                    </span>
-                  </div>
-                  <span className="text-[10px] bg-red-900 px-2 py-0.5 rounded font-bold uppercase">
-                    Immediate Operator Review Required
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Telemetry Metrics & Parameter Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#0B0F17] p-4 rounded-lg border border-slate-800 text-xs font-mono">
-              <div>
-                <div className="text-[10px] text-slate-500 uppercase">Camera Status</div>
-                <div className="text-emerald-400 font-semibold mt-1">
-                  {selectedCamera.status}
-                </div>
-              </div>
-              <div>
-                <div className="text-[10px] text-slate-500 uppercase">Tracked Vehicles</div>
-                <div className="text-white font-semibold mt-1">
-                  {selectedCamera.activeVehicles} Current
-                </div>
-              </div>
-              <div>
-                <div className="text-[10px] text-slate-500 uppercase">Configured Flow</div>
-                <div className="text-cyan-400 font-semibold mt-1">
-                  {selectedCamera.allowedDirection}
-                </div>
-              </div>
-              <div>
-                <div className="text-[10px] text-slate-500 uppercase">Resolution / Codec</div>
-                <div className="text-slate-300 font-semibold mt-1">
-                  {selectedCamera.resolution} (H.264)
-                </div>
+              <div className="absolute top-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-mono-tech px-2.5 py-1 rounded-lg border border-white/10">
+                {selectedCamera.fps} FPS · LIVE INGESTION
               </div>
             </div>
 
-            {/* Action Bar */}
-            <div className="flex items-center justify-end gap-3 pt-2">
-              <button
-                onClick={() => setSelectedCamera(null)}
-                className="px-4 py-2 rounded bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 transition"
-              >
-                Close Inspection
-              </button>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div className="glass-panel p-3 rounded-xl border border-slate-200">
+                <span className="text-slate-400 block text-[11px]">Stream Status</span>
+                <span className="font-bold text-emerald-700 font-mono-tech mt-0.5 block">ONLINE</span>
+              </div>
+              <div className="glass-panel p-3 rounded-xl border border-slate-200">
+                <span className="text-slate-400 block text-[11px]">Active Vehicles</span>
+                <span className="font-bold text-slate-900 font-mono-tech mt-0.5 block">{selectedCamera.activeVehicles}</span>
+              </div>
+              <div className="glass-panel p-3 rounded-xl border border-slate-200">
+                <span className="text-slate-400 block text-[11px]">Allowed Direction</span>
+                <span className="font-bold text-slate-900 font-mono-tech mt-0.5 block">{selectedCamera.allowedDirection}</span>
+              </div>
+              <div className="glass-panel p-3 rounded-xl border border-slate-200">
+                <span className="text-slate-400 block text-[11px]">Active Triggers</span>
+                <span className="font-bold text-rose-700 font-mono-tech mt-0.5 block">{selectedCamera.activeEventsCount} Alerts</span>
+              </div>
             </div>
           </div>
         </Modal>

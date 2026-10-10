@@ -1,107 +1,179 @@
-import React from "react";
-import { ShieldAlert, AlertTriangle, Clock, ArrowRight } from "lucide-react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
+import Modal from "../common/Modal";
 import StatusBadge from "../common/StatusBadge";
 
 export default function EventFeed({ events = [] }) {
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   return (
-    <div className="bg-[#0F172A] border border-slate-800 rounded-lg flex flex-col h-full shadow-xl overflow-hidden">
-      {/* Header */}
-      <div className="px-4 py-3 bg-[#0B0F17] border-b border-slate-800 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse"></div>
-          <h2 className="text-xs font-mono font-bold tracking-wider uppercase text-white">
-            ACTIVE EVENTS
-          </h2>
-          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-red-950 text-red-400 border border-red-800 font-bold">
-            {events.length}
-          </span>
+    <>
+      <div className="bg-[#080B11] border border-white/[0.08] rounded-lg flex flex-col h-full shadow-xl overflow-hidden">
+        {/* Header */}
+        <div className="px-4 py-3 bg-[#06080D] border-b border-white/[0.06] flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+            <h2 className="text-xs font-semibold tracking-wider uppercase text-white">
+              ACTIVE EVENTS
+            </h2>
+            <span className="text-[10px] font-mono-tech px-1.5 py-0.5 rounded bg-white/[0.05] text-slate-300">
+              {events.length}
+            </span>
+          </div>
+
+          <Link
+            to="/incidents"
+            className="text-[11px] font-medium text-slate-400 hover:text-cyan-400 flex items-center gap-1 transition"
+          >
+            <span>All Incidents</span>
+            <ArrowUpRight className="w-3 h-3" />
+          </Link>
         </div>
 
-        <Link
-          to="/incidents"
-          className="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition"
-        >
-          View All
-          <ArrowRight className="w-3 h-3" />
-        </Link>
-      </div>
-
-      {/* Events List */}
-      <div className="p-3 space-y-2.5 overflow-y-auto flex-1 max-h-[520px]">
-        {events.length === 0 ? (
-          <div className="p-6 text-center text-slate-500 font-mono text-xs">
-            No active events detected in this sector.
-          </div>
-        ) : (
-          events.map((evt) => {
-            const isWrongSide = evt.type.toLowerCase().includes("wrong-side");
-            return (
-              <div
-                key={evt.id}
-                className={`p-3 rounded-lg border transition-all ${
-                  isWrongSide
-                    ? "bg-red-500/[0.04] border-red-500/30 hover:border-red-500/50"
-                    : "bg-amber-500/[0.04] border-amber-500/30 hover:border-amber-500/50"
-                }`}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={`w-6 h-6 rounded flex items-center justify-center shrink-0 ${
-                        isWrongSide
-                          ? "bg-red-500/10 text-red-400"
-                          : "bg-amber-500/10 text-amber-400"
+        {/* Compact Events List */}
+        <div className="p-3 divide-y divide-white/[0.05] overflow-y-auto flex-1">
+          {events.length === 0 ? (
+            <div className="p-6 text-center text-slate-500 font-mono-tech text-xs">
+              No active events detected.
+            </div>
+          ) : (
+            events.map((evt) => {
+              const isWrongSide = evt.type.toLowerCase().includes("wrong-side");
+              return (
+                <button
+                  key={evt.id}
+                  onClick={() => setSelectedEvent(evt)}
+                  className="w-full text-left py-3 px-2 rounded hover:bg-white/[0.03] transition group cursor-pointer block"
+                >
+                  {/* Top Line: Emoji + Event Title */}
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`text-xs font-bold tracking-wide uppercase ${
+                        isWrongSide ? "text-red-400" : "text-amber-400"
                       }`}
                     >
-                      {isWrongSide ? (
-                        <ShieldAlert className="w-3.5 h-3.5" />
-                      ) : (
-                        <AlertTriangle className="w-3.5 h-3.5" />
-                      )}
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-white font-mono flex items-center gap-2">
-                        <span>{evt.type}</span>
-                      </div>
-                      <div className="text-[11px] font-mono text-slate-400">
-                        Vehicle #{evt.vehicleId} ({evt.vehicleClass})
-                      </div>
-                    </div>
+                      {isWrongSide ? "🚨 WRONG-SIDE" : "⚠ BLOCKAGE"}
+                    </span>
+                    <span className="text-[10px] font-mono-tech text-slate-500 group-hover:text-cyan-400 transition">
+                      Inspect →
+                    </span>
                   </div>
 
-                  <StatusBadge status={evt.status} type="status" />
+                  {/* Middle Line: Vehicle ID */}
+                  <div className="text-sm font-semibold text-white mt-1 font-mono-tech">
+                    Vehicle #{evt.vehicleId}
+                  </div>
+
+                  {/* Bottom Line: Camera · Timestamp */}
+                  <div className="text-[11px] font-mono-tech text-slate-400 mt-0.5">
+                    {evt.camera} · {evt.time.slice(0, 5)}
+                  </div>
+                </button>
+              );
+            })
+          )}
+        </div>
+      </div>
+
+      {/* Progressive Disclosure Modal */}
+      {selectedEvent && (
+        <Modal
+          isOpen={!!selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          title={`EVENT INSPECTION · VEHICLE #${selectedEvent.vehicleId}`}
+          subtitle={`${selectedEvent.type} on ${selectedEvent.camera}`}
+        >
+          <div className="space-y-4">
+            {/* Top Key Metadata */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 rounded bg-[#06080D] border border-white/[0.06]">
+              <div>
+                <span className="text-[10px] uppercase font-mono-tech text-slate-500">
+                  Vehicle ID & Class
+                </span>
+                <div className="text-sm font-semibold font-mono-tech text-white mt-0.5">
+                  #{selectedEvent.vehicleId} ({selectedEvent.vehicleClass})
                 </div>
-
-                {/* Event Context & Location */}
-                <div className="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-                  <div className="flex items-center gap-1.5 text-slate-300">
-                    <span className="text-cyan-400 font-semibold">{evt.camera}</span>
-                    <span className="text-slate-600">•</span>
-                    <span className="truncate max-w-[120px]">{evt.location}</span>
-                  </div>
-
-                  <div className="flex items-center gap-1 text-slate-500 text-[10px]">
-                    <Clock className="w-3 h-3" />
-                    <span>{evt.time}</span>
-                  </div>
-                </div>
-
-                {evt.details && (
-                  <p className="mt-1.5 text-[10px] text-slate-400 font-sans leading-relaxed bg-black/30 p-1.5 rounded border border-slate-800/50">
-                    {evt.details}
-                  </p>
-                )}
               </div>
-            );
-          })
-        )}
-      </div>
 
-      {/* Footer Disclaimer */}
-      <div className="p-2.5 bg-[#0B0F17] border-t border-slate-800 text-[10px] font-mono text-slate-500 text-center">
-        PROTOTYPE EVENTS • SUBJECT TO VERIFICATION
-      </div>
-    </div>
+              <div>
+                <span className="text-[10px] uppercase font-mono-tech text-slate-500">
+                  Event Classification
+                </span>
+                <div
+                  className={`text-sm font-semibold mt-0.5 ${
+                    selectedEvent.type.toLowerCase().includes("wrong-side")
+                      ? "text-red-400"
+                      : "text-amber-400"
+                  }`}
+                >
+                  {selectedEvent.type}
+                </div>
+              </div>
+
+              <div>
+                <span className="text-[10px] uppercase font-mono-tech text-slate-500">
+                  Confidence Score
+                </span>
+                <div className="text-sm font-semibold font-mono-tech text-cyan-400 mt-0.5">
+                  {selectedEvent.confidence}
+                </div>
+              </div>
+
+              <div>
+                <span className="text-[10px] uppercase font-mono-tech text-slate-500">
+                  Camera Feed
+                </span>
+                <div className="text-sm font-semibold font-mono-tech text-slate-200 mt-0.5">
+                  {selectedEvent.camera}
+                </div>
+              </div>
+
+              <div>
+                <span className="text-[10px] uppercase font-mono-tech text-slate-500">
+                  Timestamp
+                </span>
+                <div className="text-sm font-semibold font-mono-tech text-slate-200 mt-0.5">
+                  {selectedEvent.time} IST
+                </div>
+              </div>
+
+              <div>
+                <span className="text-[10px] uppercase font-mono-tech text-slate-500">
+                  Verification Status
+                </span>
+                <div className="mt-1">
+                  <StatusBadge status={selectedEvent.status} type="status" />
+                </div>
+              </div>
+            </div>
+
+            {/* Movement Vector / Telemetry Information */}
+            <div className="p-4 rounded bg-[#06080D] border border-white/[0.06] space-y-1.5">
+              <span className="text-[10px] uppercase font-mono-tech text-slate-500 block">
+                Movement Information & Trajectory Analysis
+              </span>
+              <p className="text-xs font-mono-tech text-slate-300 leading-relaxed">
+                {selectedEvent.details}
+              </p>
+              <div className="text-[11px] text-slate-400 pt-1 border-t border-white/[0.04]">
+                Location: {selectedEvent.location}
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                onClick={() => setSelectedEvent(null)}
+                className="px-4 py-2 rounded bg-white/[0.06] hover:bg-white/[0.1] text-xs font-medium text-slate-200 transition"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+    </>
   );
 }
+

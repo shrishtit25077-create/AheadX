@@ -1,16 +1,16 @@
 import React from "react";
 import StatusBadge from "../common/StatusBadge";
-import { ShieldAlert, AlertTriangle, Info, ExternalLink } from "lucide-react";
+import { Info, ArrowUpRight, ShieldAlert, AlertTriangle } from "lucide-react";
 
 export default function IncidentTable({ incidents = [], onSelectIncident }) {
   if (incidents.length === 0) {
     return (
-      <div className="bg-[#0F172A] border border-slate-800 rounded-lg p-12 text-center">
-        <Info className="w-8 h-8 text-slate-500 mx-auto mb-3" />
-        <p className="text-sm font-mono text-slate-300">
+      <div className="glass-panel rounded-2xl p-12 text-center border border-slate-200">
+        <Info className="w-8 h-8 text-slate-400 mx-auto mb-3" />
+        <p className="text-sm font-semibold text-slate-800">
           No incidents match the selected filter criteria.
         </p>
-        <p className="text-xs text-slate-500 font-mono mt-1">
+        <p className="text-xs text-slate-500 mt-1">
           Adjust the filter tab or search parameters.
         </p>
       </div>
@@ -18,91 +18,89 @@ export default function IncidentTable({ incidents = [], onSelectIncident }) {
   }
 
   return (
-    <div className="bg-[#0F172A] border border-slate-800 rounded-lg overflow-hidden shadow-xl">
+    <div className="glass-panel rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm">
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="bg-[#0B0F17] border-b border-slate-800 text-[10px] font-mono uppercase tracking-wider text-slate-400">
+        <table className="w-full text-left text-xs">
+          <thead className="bg-slate-50/80 border-b border-slate-200/80 text-slate-600 font-semibold uppercase tracking-wider font-mono-tech text-[11px]">
+            <tr>
               <th className="py-3 px-4">Event Type</th>
               <th className="py-3 px-4">Vehicle ID</th>
               <th className="py-3 px-4">Camera Feed</th>
-              <th className="py-3 px-4">Location</th>
+              <th className="py-3 px-4">Corridor Location</th>
               <th className="py-3 px-4">Timestamp</th>
               <th className="py-3 px-4">Status</th>
-              <th className="py-3 px-4">Severity</th>
-              <th className="py-3 px-4 text-right">Action</th>
+              <th className="py-3 px-4">Priority</th>
+              <th className="py-3 px-4 text-right">Triage</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/80 text-xs font-mono">
+          <tbody className="divide-y divide-slate-100 text-slate-700 bg-white/70">
             {incidents.map((item) => {
               const isWrongSide = item.event.toLowerCase().includes("wrong-side");
               return (
                 <tr
                   key={item.id}
                   onClick={() => onSelectIncident && onSelectIncident(item)}
-                  className="hover:bg-slate-800/40 cursor-pointer transition"
+                  className="hover:bg-blue-50/40 cursor-pointer transition-colors duration-150 group"
                 >
                   {/* Event Type */}
-                  <td className="py-3 px-4">
+                  <td className="py-3.5 px-4">
                     <div className="flex items-center gap-2">
                       {isWrongSide ? (
-                        <ShieldAlert className="w-4 h-4 text-red-400 shrink-0" />
+                        <div className="w-6 h-6 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
+                          <ShieldAlert className="w-3.5 h-3.5" />
+                        </div>
                       ) : (
-                        <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+                        <div className="w-6 h-6 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
+                          <AlertTriangle className="w-3.5 h-3.5" />
+                        </div>
                       )}
-                      <span className="font-bold text-white tracking-wide">
+                      <span className={`font-semibold ${isWrongSide ? "text-rose-900" : "text-amber-900"}`}>
                         {item.event}
                       </span>
                     </div>
                   </td>
 
                   {/* Vehicle ID */}
-                  <td className="py-3 px-4">
-                    <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 font-bold text-cyan-300">
+                  <td className="py-3.5 px-4">
+                    <span className="font-mono-tech font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
                       {item.vehicleId}
                     </span>
-                    <span className="text-[10px] text-slate-500 ml-1.5 font-sans">
-                      ({item.vehicleClass})
+                    <span className="text-[11px] text-slate-500 ml-1.5 capitalize">
+                      {item.vehicleClass}
                     </span>
                   </td>
 
                   {/* Camera */}
-                  <td className="py-3 px-4 text-slate-300 font-semibold">
+                  <td className="py-3.5 px-4 font-medium text-slate-800">
                     {item.camera}
                   </td>
 
                   {/* Location */}
-                  <td className="py-3 px-4 text-slate-400">
+                  <td className="py-3.5 px-4 text-slate-500 max-w-xs truncate">
                     {item.location}
                   </td>
 
                   {/* Time */}
-                  <td className="py-3 px-4 text-slate-400">
+                  <td className="py-3.5 px-4 font-mono-tech text-slate-600">
                     {item.time}
                   </td>
 
                   {/* Status */}
-                  <td className="py-3 px-4">
-                    <StatusBadge status={item.status} type="status" />
+                  <td className="py-3.5 px-4">
+                    <StatusBadge status={item.status} type="status" size="xs" />
                   </td>
 
                   {/* Severity */}
-                  <td className="py-3 px-4">
-                    <StatusBadge status={item.severity} type="severity" />
+                  <td className="py-3.5 px-4">
+                    <StatusBadge status={item.severity} type="severity" size="xs" />
                   </td>
 
                   {/* Action */}
-                  <td className="py-3 px-4 text-right">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (onSelectIncident) onSelectIncident(item);
-                      }}
-                      className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] transition inline-flex items-center gap-1"
-                    >
-                      <span>Review</span>
-                      <ExternalLink className="w-3 h-3 text-cyan-400" />
-                    </button>
+                  <td className="py-3.5 px-4 text-right">
+                    <span className="inline-flex items-center gap-1 text-blue-600 font-semibold group-hover:text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200/80 transition shadow-2xs">
+                      <span>Investigate</span>
+                      <ArrowUpRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
                   </td>
                 </tr>
               );

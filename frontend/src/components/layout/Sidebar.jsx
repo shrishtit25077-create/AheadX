@@ -1,169 +1,125 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import {
-  ShieldAlert,
+  LayoutGrid,
   Video,
   AlertTriangle,
   MapPin,
   BarChart3,
   Activity,
-  Radio,
-  Sliders,
+  Cpu,
   Layers,
 } from "lucide-react";
-import { systemMeta } from "../../data/mockData";
 
 export default function Sidebar() {
   const navItems = [
     {
       to: "/dashboard",
       label: "Command Center",
-      icon: Activity,
+      badge: "LIVE",
+      badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
+      icon: LayoutGrid,
     },
     {
       to: "/monitoring",
-      label: "Live Monitoring",
-      icon: Video,
+      label: "CCTV Matrix",
       badge: "6 CAM",
+      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      icon: Video,
     },
     {
       to: "/incidents",
-      label: "Incidents",
+      label: "Incident Triage",
+      badge: "4",
+      badgeColor: "bg-rose-50 text-rose-700 border-rose-200",
       icon: AlertTriangle,
-      badge: "4 ACTIVE",
-      badgeColor: "bg-red-500/20 text-red-400 border border-red-500/30",
     },
     {
       to: "/risk-map",
-      label: "Risk Map",
+      label: "Spatial Risk Map",
+      badge: null,
       icon: MapPin,
     },
     {
       to: "/analytics",
-      label: "Analytics",
+      label: "Intelligence Reports",
+      badge: null,
       icon: BarChart3,
     },
   ];
 
   return (
-    <aside className="w-64 bg-[#0F172A] border-r border-slate-800 flex flex-col justify-between select-none shrink-0 h-screen sticky top-0">
+    <aside className="w-64 bg-white/85 backdrop-blur-xl border-r border-slate-200/80 flex flex-col justify-between select-none shrink-0 h-screen sticky top-0 z-20 shadow-xs">
       <div>
-        {/* Brand Header */}
-        <div className="p-5 border-b border-slate-800/80 bg-[#0B0F17]/50">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(56,189,248,0.15)]">
-              <ShieldAlert className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-black text-xl tracking-wider text-white">AHEADX</span>
-                <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-bold">
-                  AI CORE
-                </span>
-              </div>
-              <p className="text-[9px] font-mono tracking-widest text-slate-400 uppercase mt-0.5">
-                Traffic Intelligence
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Operational Status Pill */}
-        <div className="mx-4 my-3 px-3 py-2 rounded border border-slate-800 bg-slate-900/60 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-xs font-mono font-medium text-emerald-400">
-              OPERATIONAL
-            </span>
-          </div>
-          <span className="text-[10px] font-mono text-slate-500">
-            {systemMeta.summaryMetrics.processingLatencyMs}ms
+        {/* Navigation Category Header */}
+        <div className="px-5 pt-5 pb-2">
+          <span className="text-[11px] font-bold tracking-wider uppercase text-slate-400 font-mono-tech">
+            Platform Modules
           </span>
         </div>
 
-        {/* Navigation Menu */}
-        <div className="px-3 py-2">
-          <div className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500 px-3 mb-2">
-            Command Navigation
-          </div>
-          <nav className="space-y-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `flex items-center justify-between px-3 py-2.5 rounded-md text-xs font-medium transition-all ${
-                      isActive
-                        ? "bg-cyan-500/10 text-cyan-300 border-l-2 border-cyan-400 shadow-[inset_0_0_12px_rgba(56,189,248,0.06)] font-semibold"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
-                    }`
-                  }
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Icon className="w-4 h-4" />
-                    <span>{item.label}</span>
-                  </div>
-                  {item.badge && (
-                    <span
-                      className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-semibold ${
-                        item.badgeColor || "bg-slate-800 text-slate-400"
-                      }`}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
-                </NavLink>
-              );
-            })}
-          </nav>
-        </div>
-
-        {/* Live Sector Information */}
-        <div className="px-4 py-3 mx-3 mt-3 rounded-md bg-slate-900/40 border border-slate-800/80">
-          <div className="text-[10px] font-mono uppercase text-slate-500 flex items-center gap-1.5 mb-1.5">
-            <Radio className="w-3 h-3 text-cyan-400 animate-pulse" />
-            Active Deployment
-          </div>
-          <p className="text-xs font-medium text-slate-200 leading-snug">
-            NH-48 Corridor
-          </p>
-          <p className="text-[10px] font-mono text-slate-400 mt-0.5">
-            Sector 4 Operations Hub
-          </p>
-          <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-800/80 text-[10px] font-mono text-slate-400">
-            <span>FPS: 31.5</span>
-            <span className="text-cyan-400">ByteTrack v2</span>
-          </div>
-        </div>
+        {/* Navigation Links */}
+        <nav className="px-3 space-y-1.5">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all duration-200 group ${
+                    isActive
+                      ? "bg-gradient-to-r from-blue-50 to-indigo-50/60 text-blue-700 font-semibold shadow-xs border border-blue-200/80"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent"
+                  }`
+                }
+              >
+                <div className="flex items-center gap-3">
+                  <Icon className="w-4 h-4 shrink-0 transition-transform group-hover:scale-110 text-slate-500 group-hover:text-blue-600" />
+                  <span>{item.label}</span>
+                </div>
+                {item.badge && (
+                  <span className={`text-[10px] font-mono-tech font-bold px-2 py-0.5 rounded-full border shadow-2xs ${item.badgeColor}`}>
+                    {item.badge}
+                  </span>
+                )}
+              </NavLink>
+            );
+          })}
+        </nav>
       </div>
 
-      {/* Footer Profile & Settings */}
-      <div className="p-3 border-t border-slate-800 bg-[#0B0F17]/50">
-        <div className="flex items-center justify-between px-2 py-1.5 text-xs text-slate-400">
+      {/* Bottom Telemetry & Engine Health Card */}
+      <div className="p-4 border-t border-slate-200/80 bg-slate-50/60 m-3 rounded-2xl border">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] font-mono text-slate-300 font-bold">
-              OP
-            </div>
-            <div>
-              <div className="text-[11px] font-semibold text-slate-300 leading-tight">
-                Operator Station
-              </div>
-              <div className="text-[9px] font-mono text-slate-500">
-                PROTOTYPE MODE
-              </div>
-            </div>
+            <Cpu className="w-3.5 h-3.5 text-blue-600" />
+            <span className="text-[11px] font-bold text-slate-700">Vision Engine</span>
           </div>
-          <button
-            title="Console Settings"
-            className="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition"
-          >
-            <Sliders className="w-3.5 h-3.5" />
-          </button>
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono-tech font-semibold text-emerald-700 bg-emerald-100/70 px-1.5 py-0.5 rounded-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-soft-pulse"></span>
+            ACTIVE
+          </span>
+        </div>
+
+        <div className="space-y-1.5 text-[11px] text-slate-500 font-mono-tech">
+          <div className="flex justify-between items-center">
+            <span>Model:</span>
+            <span className="font-semibold text-slate-800">YOLOv8 + ByteTrack</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span>Throughput:</span>
+            <span className="font-semibold text-blue-700">31.5 FPS</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span>Inference Latency:</span>
+            <span className="font-semibold text-slate-800">32 ms</span>
+          </div>
+        </div>
+
+        <div className="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-400">
+          <span>Corridor Security</span>
+          <span className="font-semibold text-slate-600 font-mono-tech">TLS Encrypted</span>
         </div>
       </div>
     </aside>
